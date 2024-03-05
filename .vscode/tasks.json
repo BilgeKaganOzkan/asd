@@ -1,0 +1,63 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean-build-directory",
+            "type": "shell",
+            "command": "rm",
+            "args": ["-rf", "${workspaceFolder}/build"],
+            "group": "build",
+            "hide": true,
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "create-build-directory",
+            "type": "shell",
+            "command": "mkdir",
+            "args": ["${workspaceFolder}/build"],
+            "group": "build",
+            "hide": true,
+            "dependsOn": ["clean-build-directory"],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "qmake",
+            "type": "shell",
+            "command": "qmake",
+            "args": ["-o", "${workspaceFolder}/build", "${workspaceFolder}/O-IKA.pro"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "hide": true,
+            "dependsOn": ["create-build-directory"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make",
+            "args": ["-C", "${workspaceFolder}/build"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": ["qmake"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
